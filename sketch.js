@@ -1,6 +1,6 @@
 let img;
 function setup() {  
-    let cnv = createCanvas(100, 100);
+    let cnv = createCanvas(400, 400);
     cnv.mousePressed(userStartAudio);
     // createCanvas(400, 400);
     mic = new p5.AudioIn();
@@ -8,12 +8,16 @@ function setup() {
   }
 
 function draw() {
-    let micLevel = mic.getLevel();
-    let scaleX = height + micLevel * width;
-    let scaleY = width + micLevel * height;
-    image(img, 2, 2, scaleX, scaleY); 
+    expandCar();
 }
 
+function expandCar() {
+    image(img, 2, 2, width, height); 
+    let micLevel = mic.getLevel();
+    let scaleX = height * micLevel;
+    let scaleY = width * micLevel;
+    image(img, 2, 2, width * scaleX, height * scaleY); 
+}
 
 function preload() {
   img = loadImage('/assets/vehicle.png');
