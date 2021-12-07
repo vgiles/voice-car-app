@@ -23,7 +23,7 @@ function draw() {
 function moveDial() {
     // image(img, 2, 2, width, height); 
     strokeWeight(10); 
-    stroke(255, 255, 255, 130);
+    stroke(255, 200, 200, 130);
     let micLevel = mic.getLevel();
     // console.log(micLevel);
     // let scaleX = height * micLevel;
@@ -38,7 +38,7 @@ function moveDial() {
     ellipse(centreX, centreY, 10, 10);
   
     if (micLevel > 0) {
-        line(centreX, centreY, centreX - radius, centreY - radius );
+        line(centreX, centreY, centreX - radius, centreY - radius);
     } else {
         line(centreX, centreY, defaultX, defaultY);
     }
