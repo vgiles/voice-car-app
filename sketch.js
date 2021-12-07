@@ -8,11 +8,12 @@ function setup() {
   }
 
 function draw() {
+    background(255);
     expandCar();
 }
 
 function expandCar() {
-    image(img, 2, 2, width, height); 
+    // image(img, 2, 2, width, height); 
     let micLevel = mic.getLevel();
     let scaleX = height * micLevel;
     let scaleY = width * micLevel;
