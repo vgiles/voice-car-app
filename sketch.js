@@ -1,7 +1,8 @@
 let img;
-var radius = 130;
+var radius = 150;
 var angle = 0;
 var speed = 0.05;
+// var steps = TWO_PI/360;
 
 
 function setup() {  
@@ -21,30 +22,29 @@ function draw() {
 }
 
 function moveDial() {
-    // image(img, 2, 2, width, height); 
+    let micLevel = mic.getLevel();
     strokeWeight(10); 
     stroke(255, 200, 200, 130);
-    let micLevel = mic.getLevel();
-    // console.log(micLevel);
-    // let scaleX = height * micLevel;
-    // let scaleY = width * micLevel;
-    var centreX = width/2;
-    var centreY = height/2;
-    var defaultX = width/3.5;
-    var defaultY = ((height/2.5)+100);
-    var x = defaultX * sin(angle);
-    var y = defaultY * cos(angle);
-
-    ellipse(centreX, centreY, 10, 10);
-  
-    if (micLevel > 0) {
-        line(centreX, centreY, centreX - radius, centreY - radius);
-    } else {
-        line(centreX, centreY, defaultX, defaultY);
-    }
+    let cx = width/2;
+    let cy = height/2;
+    // background(0);
+    translate(0, 0); //set the new origin/point of rotation
     
-  
-    angle = angle + (micLevel*10000);
+    // strokeWeight(3);
+    // stroke(255);
+    // fill(255);
+    if (micLevel > 0.003) {
+        line(cx, cy, cx + cos(angle) * radius, cy + sin(angle) * radius);
+        rotate(angle);
+        angle = angle + (micLevel*5);
+    } else {
+        angle = angle - (micLevel*5);
+        rotate(angle);
+        // angle = 0;
+        line(cx, cy, cx + cos(angle) * radius, cx + sin(angle) * radius);
+        
+        
+    }
 }
 
 function preload() {
