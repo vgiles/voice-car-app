@@ -1,5 +1,5 @@
 let img;
-var radius = 150;
+var radius = 130;
 var angle = 0;
 var speed = 0.05;
 
@@ -22,20 +22,29 @@ function draw() {
 
 function moveDial() {
     // image(img, 2, 2, width, height); 
-    // let micLevel = mic.getLevel();
+    strokeWeight(10); 
+    stroke(255, 255, 255, 130);
+    let micLevel = mic.getLevel();
+    // console.log(micLevel);
     // let scaleX = height * micLevel;
     // let scaleY = width * micLevel;
-    var centerX = width/2;
-    var centerY = height/2;
-    ellipse(centerX, centerY, 10, 10);
+    var centreX = width/2;
+    var centreY = height/2;
+    var defaultX = width/3.5;
+    var defaultY = ((height/2.5)+100);
+    var x = defaultX * sin(angle);
+    var y = defaultY * cos(angle);
+
+    ellipse(centreX, centreY, 10, 10);
   
-    var x = centerX + radius * cos(angle);
-    var y = centerY + radius * sin(angle);
-    strokeWeight(30); 
-    stroke(255, 255, 255, 130);
-    line(y, x, 50, 50);
+    if (micLevel > 0) {
+        line(centreX, centreY, centreX - radius, centreY - radius );
+    } else {
+        line(centreX, centreY, defaultX, defaultY);
+    }
+    
   
-    angle = angle + speed;
+    angle = angle + (micLevel*10000);
 }
 
 function preload() {
@@ -43,7 +52,7 @@ function preload() {
 }
 
 function mousePressed() {
-    if (getAudioContext().state !== 'running') {
+    if (getAudioContext().state != 'running') {
         getAudioContext().resume();
     }
 }
